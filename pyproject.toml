@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "map-my-world"
+name = "app"
 version = "0.1.0"
 description = ""
 authors = ["Omar Castiblanco <ing.omar.castiblanco@gmail.com>"]
@@ -11,6 +11,7 @@ fastapi = "^0.111.0"
 pydantic = "^2.7.4"
 pydantic-settings = "^2.3.3"
 sqlalchemy = "^2.0.31"
+psycopg = {extras = ["binary"], version = "^3.1.13"}
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.2.2"

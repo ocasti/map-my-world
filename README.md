@@ -1,5 +1,10 @@
 # Map My World API
 
+## API Documentation
+
+[OpenAPI](http://127.0.0.1:8000/docs)
+
+
 ## Requirements
 
 * [Poetry](https://python-poetry.org/) for Python package and environment management.
