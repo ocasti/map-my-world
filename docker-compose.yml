@@ -1,6 +1,6 @@
 services:
   db:
-    image: postgres:12
+    image: postgis/postgis:12-3.4
     restart: always
     # set shared memory limit when using docker-compose
     shm_size: 128mb

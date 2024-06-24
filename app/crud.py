@@ -5,7 +5,8 @@ from pydantic import BaseModel
 from sqlalchemy import func, select, update
 from sqlalchemy.orm import Session
 
-from app.models import Category
+from app.api.models import LocationPayload
+from app.models import Category, Location
 
 
 class Crud:
@@ -32,7 +33,8 @@ class Crud:
         return item
 
     def create(self, payload: BaseModel):
-        item = self.model(**payload.model_dump())
+        create_data = self.get_create_data_from_payload(payload)
+        item = self.model(**create_data)
 
         self._session.add(item)
         self._session.commit()
@@ -40,7 +42,7 @@ class Crud:
         return item
 
     def update(self, payload: BaseModel, item):
-        update_data = payload.model_dump(exclude_unset=True)
+        update_data = self.get_update_data_from_payload(payload)
 
         stmt = update(self.model).where(self.model.id == item.id).values(**update_data)
 
@@ -53,8 +55,28 @@ class Crud:
         self._session.delete(item)
         self._session.commit()
 
+    def get_create_data_from_payload(self, payload: BaseModel) -> dict:
+        return payload.model_dump()
+
+    def get_update_data_from_payload(self, payload: BaseModel) -> dict:
+        return payload.model_dump(exclude_unset=True)
+
 
 class CategoryCrud(Crud):
     @property
     def model(self):
         return Category
+
+
+class LocationCrud(Crud):
+    @property
+    def model(self):
+        return Location
+
+    def get_create_data_from_payload(self, payload: LocationPayload) -> dict:
+        data = payload.model_dump()
+        return data | {"coordinate": payload.point_coordinate}
+
+    def get_update_data_from_payload(self, payload: LocationPayload) -> dict:
+        data = payload.model_dump()
+        return data | {"coordinate": payload.point_coordinate}
