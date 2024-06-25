@@ -1,6 +1,13 @@
 from .category import CategoriesPublic, CategoryPayload, CategoryPublic
 from .generic import Message
 from .locations import LocationPayload, LocationPublic, LocationsPublic
+from .review import (
+    CreateReviewPayload,
+    DetailReviewPublic,
+    ReviewPublic,
+    ReviewsPublic,
+    UpdateReviewPayload,
+)
 
 __all__ = (
     "CategoriesPublic",
@@ -9,5 +16,10 @@ __all__ = (
     "LocationPayload",
     "LocationPublic",
     "LocationsPublic",
+    "CreateReviewPayload",
+    "UpdateReviewPayload",
+    "DetailReviewPublic",
+    "ReviewPublic",
+    "ReviewsPublic",
     "Message",
 )

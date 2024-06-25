@@ -1,10 +1,16 @@
 """DB models"""
 
+from datetime import UTC, datetime
+
 from geoalchemy2 import Geometry
-from sqlalchemy import String
-from sqlalchemy.orm import Mapped, declarative_base, mapped_column
+from sqlalchemy import ForeignKey, String, func
+from sqlalchemy.orm import Mapped, declarative_base, mapped_column, relationship
 
 Base = declarative_base()
+
+
+def utcnow() -> datetime:
+    return datetime.now(UTC)
 
 
 class Category(Base):
@@ -28,3 +34,24 @@ class Location(Base):
 
     def __repr__(self) -> str:
         return f"Location(id={self.id}, name={self.name})"
+
+
+class Review(Base):
+    __tablename__ = "location_category_reviewed"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    location_id: Mapped[int] = mapped_column(ForeignKey("locations.id"))
+    category_id: Mapped[int] = mapped_column(ForeignKey("categories.id"))
+    reviewed_date: Mapped[datetime] = mapped_column(
+        default=func.now(), onupdate=func.now()
+    )
+    score: Mapped[int] = mapped_column()
+
+    location: Mapped[Location] = relationship()
+    category: Mapped[Category] = relationship()
+
+    def __repr__(self) -> str:
+        return (
+            f"Review(id={self.id}, "
+            f"location_id={self.location_id}, category_id={self.category_id})"
+        )
