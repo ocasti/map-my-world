@@ -60,3 +60,20 @@ Add dev dependency
 ```shell
 poetry add pytest --group dev
 ```
+
+
+### DB versions
+
+The schema version of DB is management by alembic.
+
+How generate a new version based on models:
+
+```shell
+alembic revision --autogenerate -m "My comment to new version"
+```
+
+Run DB migrations:
+
+```shell
+alembic upgrade head
+```

@@ -14,6 +14,7 @@ sqlalchemy = "^2.0.31"
 psycopg = {extras = ["binary"], version = "^3.1.13"}
 geoalchemy2 = "^0.15.1"
 pydantic-extra-types = "^2.8.2"
+alembic = "^1.13.1"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.2.2"
@@ -33,6 +34,7 @@ exclude = [".venv"]
 
 [tool.ruff]
 target-version = "py312"
+exclude = ["alembic"]
 
 [tool.ruff.lint]
 select = [
