@@ -8,6 +8,23 @@
 ## Requirements
 
 * [Poetry](https://python-poetry.org/) for Python package and environment management.
+* [Docker](https://www.docker.com/) for easy run.
+
+## Run with docker
+
+Up
+
+```shell
+docker compose up -d
+```
+
+[OpenAPI](http://localhost:8000/docs) to see the API documentations
+
+Down
+
+```shell
+docker compose down
+```
 
 ## Local development
 

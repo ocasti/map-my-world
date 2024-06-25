@@ -2,3 +2,28 @@ services:
   db:
     ports:
       - "5432:5432"
+
+  adminer:
+    ports:
+      - "8080:8080"
+
+  api:
+    restart: "no"
+    volumes:
+      - ./:/code
+    build:
+      args:
+        INSTALL_DEV: ${INSTALL_DEV-true}
+        RUN_DEV_MODE: ${RUN_DEV_MODE-true}
+    ports:
+      - "8000:8000"
+    command:
+      [
+        "fastapi",
+        "dev",
+        "app/main.py",
+        "--host",
+        "0.0.0.0",
+        "--port",
+        "8000",
+      ]
